@@ -258,6 +258,11 @@ house-price-prediction-ml/
 ├── outputs/
 │   └── submission.csv
 ├── images/
+│   ├── saleprice_distribution.png
+│   ├── log_saleprice_distribution.png
+│   ├── correlation_matrix.png
+│   ├── residual_analysis.png
+│   └── neighborhood_error.png
 ├── requirements.txt
 └── .gitignore
 ```
@@ -274,9 +279,15 @@ house-price-prediction-ml/
 
 ## Reproducibility
 
-The final notebook was restarted and executed from beginning to end before the final version was saved.
+The final notebook was restarted and executed from beginning to end in the Kaggle notebook environment before the final version was saved.
 
-Random states were fixed where applicable, and the final Kaggle submission reproduced the same **0.13057 public leaderboard score**.
+The project uses the Kaggle **House Prices: Advanced Regression Techniques** dataset. The notebook expects the competition data to be available through Kaggle's standard input path:
+
+```text
+/kaggle/input/competitions/house-prices-advanced-regression-techniques/
+```
+
+Random states were fixed where applicable, and rerunning the complete workflow reproduced the same **0.13057 public leaderboard score**.
 
 The complete analysis is available in:
 
@@ -289,3 +300,5 @@ The final Kaggle prediction file is available in:
 ```text
 outputs/submission.csv
 ```
+
+To reproduce the project outside Kaggle, download the competition data separately and update the dataset paths in the notebook accordingly.
