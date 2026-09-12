@@ -40,6 +40,14 @@ np.log1p(SalePrice)
 ```
 
 reduced training-target skewness from approximately **1.74** to **0.12**.
+### Target Distribution
+
+<p align="center">
+  <img src="images/saleprice_distribution.png" width="45%">
+  <img src="images/log_saleprice_distribution.png" width="45%">
+</p>
+
+The log transformation substantially reduces the strong right skew of the original target distribution, making the transformed target more suitable for RMSE-based modelling.
 
 Several numerical variables showed relatively strong associations with house prices, including:
 
@@ -51,7 +59,13 @@ Several numerical variables showed relatively strong associations with house pri
 - `1stFlrSF`
 
 The analysis also identified substantial correlation between some predictors. For example, `GarageCars` and `GarageArea` have a correlation of approximately **0.88**, motivating the evaluation of regularised regression.
+### Feature Correlations
 
+<p align="center">
+  <img src="images/correlation_matrix.png" width="65%">
+</p>
+
+The correlation matrix highlights several strongly related predictors. In particular, the high correlation between `GarageCars` and `GarageArea` illustrates potential multicollinearity in the feature space and provides additional motivation for evaluating regularised linear models.
 ## Missing-Value Analysis
 
 Missing values were not treated as automatically equivalent.
@@ -166,6 +180,13 @@ Analysis of the largest errors suggested a tendency for some lower-priced proper
 Across the complete validation set, actual log price and residual had a correlation of approximately **0.44**.
 
 Because positive residuals indicate underprediction and negative residuals indicate overprediction, this pattern is consistent with a tendency toward the middle of the price distribution. However, the relationship is not deterministic and is not interpreted as evidence of a universal prediction pattern.
+### Residual Diagnostics
+
+<p align="center">
+  <img src="images/residual_analysis.png" width="70%">
+</p>
+
+The residual plot shows a moderate positive relationship between actual log price and residuals. Some lower-priced properties are overpredicted, while some higher-priced properties are underpredicted. However, the pattern is not universal, so the figure is treated as diagnostic evidence rather than proof of a deterministic relationship.
 
 ### Neighbourhood-Level Error Analysis
 
@@ -182,7 +203,11 @@ The relatively high mean and median errors for `IDOTRR` suggest that its perform
 For `NridgHt`, the difference between mean and median error suggests that several particularly large errors contribute to its overall error level.
 
 These differences are descriptive rather than causal and may reflect differences in property characteristics, price distributions, feature interactions, and subgroup sample sizes.
+<p align="center">
+  <img src="images/neighborhood_error.png" width="75%">
+</p>
 
+The figure compares mean absolute log residuals across neighbourhoods. `IDOTRR` shows the largest average prediction error among the evaluated groups, while several neighbourhoods have substantially lower errors. Because subgroup sizes differ, these results are used primarily to identify areas for further investigation rather than to make causal conclusions.
 ## Final Model and Kaggle Result
 
 After model selection and error analysis, the tuned Gradient Boosting pipeline was retrained using all **1,460 labelled training observations**.
